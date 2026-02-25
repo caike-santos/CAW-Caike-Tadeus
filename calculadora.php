@@ -37,8 +37,6 @@
             $resultado = $n1 / $n2;
         }
 
-        echo "Resultado = $resultado";
-
         }elseif($_SERVER['REQUEST_METHOD'] == 'GET'){ 
             $n1 = filter_input(INPUT_GET, "n1") ?? 0;
         $n2 = filter_input(INPUT_GET, "n2") ?? 0;
@@ -56,9 +54,8 @@
         }elseif($sub == "dividir"){
             $resultado = $n1 / $n2;
         }
-
-        echo "Resultado = $resultado";
             }
+             echo "Resultado = $resultado";
 
      ?>
      
