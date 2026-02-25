@@ -21,8 +21,8 @@
 
     <?php 
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){ 
-        $n1 = filter_input(INPUT_POST, "n1") ?? 0;
-        $n2 = filter_input(INPUT_POST, "n2") ?? 0;
+        $n1 = filter_input(INPUT_POST, "n1", FILTER_VALIDATE_FLOAT) ?? 0;
+        $n2 = filter_input(INPUT_POST, "n2", FILTER_VALIDATE_FLOAT) ?? 0;
         $sub = filter_input(INPUT_POST, "sub") ?? "in";
         $resultado = 0;
         if($sub == "in"){
@@ -34,12 +34,14 @@
         }elseif($sub == "multiplicar"){
             $resultado = $n1 * $n2;
         }elseif($sub == "dividir"){
-            $resultado = $n1 / $n2;
+            if($n2 == 0){
+                echo "Valor invalido";}
+            else{$resultado = $n1 / $n2;}
         }
 
         }elseif($_SERVER['REQUEST_METHOD'] == 'GET'){ 
-            $n1 = filter_input(INPUT_GET, "n1") ?? 0;
-        $n2 = filter_input(INPUT_GET, "n2") ?? 0;
+            $n1 = filter_input(INPUT_GET, "n1", FILTER_VALIDATE_FLOAT) ?? 0;
+        $n2 = filter_input(INPUT_GET, "n2", FILTER_VALIDATE_FLOAT) ?? 0;
         $sub = filter_input(INPUT_GET, "sub") ?? "in";
         $resultado = 0;
         
@@ -52,7 +54,10 @@
         }elseif($sub == "multiplicar"){
             $resultado = $n1 * $n2;
         }elseif($sub == "dividir"){
-            $resultado = $n1 / $n2;
+            if($n2 == 0){
+                echo "Valor invalido";}
+            else{$resultado = $n1 / $n2;}
+            
         }
             }
              echo "Resultado = $resultado";
