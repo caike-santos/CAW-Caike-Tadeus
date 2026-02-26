@@ -8,10 +8,10 @@
 <body>
     <form action="calculadora.php" method="POST">
         <label for="in1">Número 1:</label>
-        <input type="number" name="n1" id="in1">
+        <input type="number" name="n1" id="in1" required>
         <br>
         <label for="in2">Número 2:</label>
-        <input type="number" name="n2" id="in2">
+        <input type="number" name="n2" id="in2" required>
         <br>
         <input type="submit" value="somar" name="sub">
         <input type="submit" value="subtrair" name="sub">
@@ -25,9 +25,7 @@
         $n2 = filter_input(INPUT_POST, "n2", FILTER_VALIDATE_FLOAT) ?? 0;
         $sub = filter_input(INPUT_POST, "sub") ?? "in";
         $resultado = 0;
-        if($sub == "in"){
-            echo "Erro";
-        }elseif($sub == "somar"){
+        if($sub == "somar"){
             $resultado = $n1 + $n2;   
         }elseif($sub == "subtrair"){
             $resultado = $n1 - $n2;
@@ -35,7 +33,7 @@
             $resultado = $n1 * $n2;
         }elseif($sub == "dividir"){
             if($n2 == 0){
-                echo "Valor invalido";}
+                $resultado = "Valor invalido";}
             else{$resultado = $n1 / $n2;}
         }
 
@@ -45,9 +43,7 @@
         $sub = filter_input(INPUT_GET, "sub") ?? "in";
         $resultado = 0;
         
-        if($sub == "in"){
-            echo "Erro";
-        }elseif($sub == "somar"){
+        if($sub == "somar"){
             $resultado = $n1 + $n2;   
         }elseif($sub == "subtrair"){
             $resultado = $n1 - $n2;
