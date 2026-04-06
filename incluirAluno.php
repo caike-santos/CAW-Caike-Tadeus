@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
 <head>
 </head>
 <body>
-<h1>Criar Nova Disciplina</h1>
+<h1>Criar Novo Aluno</h1>
 
 <form action="incluirAluno.php" method="POST">
     Nome: <input type="text" name="nome">
