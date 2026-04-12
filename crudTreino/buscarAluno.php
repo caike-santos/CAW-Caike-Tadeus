@@ -16,12 +16,11 @@
             while(!feof($arqAluno)){
                 $linha = fgets($arqAluno);
                 $colunaDados = explode(";", $linha);
+                 $msg = "Aluno nao encontrado";
                 if($colunaDados[0] == $matricula){
-                    echo("{$colunaDados[0]};{$colunaDados[1]};{$colunaDados[2]}");
+                    echo($linha);
                     $msg = "Aluno encontrado";
                     break;
-                }else{
-                    $msg = "Aluno nao encontrado";
                 }
             }
             fclose($arqAluno);
