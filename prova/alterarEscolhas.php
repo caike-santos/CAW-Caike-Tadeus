@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-  <link rel="stylesheet" href="../_css/estilo.css"/>
+
+  <link rel="stylesheet" href="style.css">
   <meta charset="UTF-8"/>
-  <title>modelo</title>
+  <title>Alterar Pergunta com Alternativas</title>
 </head>
 <body>
 <div>
     <?php
         $msg = "";
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["btn_alterar"])){
+            $id = $_POST["id"];
             $pergunta = $_POST["pergunta"];
             $resposta1 = $_POST["resposta1"];
             $resposta2 = $_POST["resposta2"];
@@ -23,8 +25,8 @@
             while(!feof($arqPerguntas)){
                 $linha = fgets($arqPerguntas);
                 $colunaDados = explode(";", $linha);
-                if($colunaDados[0] == $pergunta){
-                    $linha = "$pergunta;$resposta1;$resposta2;$resposta3;$resposta4;$respostaCorreta\n";
+                if($colunaDados[0] == $id){
+                    $linha = "$id;$pergunta;$resposta1;$resposta2;$resposta3;$resposta4;$respostaCorreta\n";
                     $msg = "alterado";
                 }
                 $copia .= $linha;
@@ -42,20 +44,21 @@
         fclose($arqAluno);
             
         }
-        $arrayPerguntas = array("Pergunta" => "", "Resposta1" => "", "Resposta2" => "", "Resposta3" => "", "Resposta4" => "", "RespostaCorreta" => "");
+        $arrayPerguntas = array("Id" => "", "Pergunta" => "", "Resposta1" => "", "Resposta2" => "", "Resposta3" => "", "Resposta4" => "", "RespostaCorreta" => "");
         if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["btnprocurar"])){
-           $pergunta = $_POST["pergunta"];
+           $id = $_POST["id"];
             $arqPerguntas = fopen("perguntas.txt", "r") or die("Arquivo nao encontrado");
             while(!feof($arqPerguntas)){
                 $linha = fgets($arqPerguntas);
                 $colunaDados = explode(";", $linha);
-                if($colunaDados[0] == $pergunta){
-                    $arrayPerguntas['Pergunta'] = $colunaDados[0];
-                    $arrayPerguntas['Resposta1'] = $colunaDados[1];
-                    $arrayPerguntas['Resposta2'] = $colunaDados[2];
-                    $arrayPerguntas['Resposta3'] = $colunaDados[3];
-                    $arrayPerguntas['Resposta4'] = $colunaDados[4];
-                    $arrayPerguntas['RespostaCorreta'] = $colunaDados[5];
+                if($colunaDados[0] == $id){
+                    $arrayPerguntas['Id'] = $colunaDados[0];
+                    $arrayPerguntas['Pergunta'] = $colunaDados[1];
+                    $arrayPerguntas['Resposta1'] = $colunaDados[2];
+                    $arrayPerguntas['Resposta2'] = $colunaDados[3];
+                    $arrayPerguntas['Resposta3'] = $colunaDados[4];
+                    $arrayPerguntas['Resposta4'] = $colunaDados[5];
+                    $arrayPerguntas['RespostaCorreta'] = $colunaDados[6];
                     break;
                 }
             }
@@ -65,7 +68,7 @@
     ?>
     <form action="alterarEscolhas.php" method="post">
         <h5>Procurar alternativas</h5>
-        Pergunta: <input type="text" name="pergunta" required>
+       Id: <input type="number" name="id" required>
         <br><br>
         <input type="submit" value="Procurar" name="btnprocurar">
         <br>
@@ -74,6 +77,8 @@
 </form>
 <br>
     <form action="alterarEscolhas.php" method="post">
+        Id: <input type="number" name="id" required readonly value="<?php echo($arrayPerguntas['Id']); ?>">
+        <br><br>
         Pergunta: <input type="text" name="pergunta" required value="<?php echo($arrayPerguntas['Pergunta']); ?>">
         <br><br>    
         Resposta 1: <input type="text" name="resposta1" required value="<?php echo($arrayPerguntas['Resposta1']); ?>">
@@ -89,7 +94,7 @@
         <input type="submit" value="Alterar" name="btn_alterar">
         <br>
         <?php echo($msg); ?>
-        <Button><a href="menu.html">Voltar ao Menu</a></Button>
+       <button type="button" onclick="location.href='menu.html'">Voltar ao Menu</button>
 </form>
 </div>
 </body>
